@@ -1,0 +1,21 @@
+name: storm
+version: 0.0.0
+
+category: Game
+description: Storm parses and generates Fortnite replays.
+extra-source-files: README.markdown
+github: tfausak/storm
+license-file: LICENSE.markdown
+license: MIT
+maintainer: Taylor Fausak
+synopsis: Parse and generate Fortnite replays.
+
+dependencies:
+  base: '>= 4.11.1 && < 4.12'
+ghc-options:
+  - -Weverything
+  - -Wno-implicit-prelude
+  - -Wno-safe
+
+library:
+  source-dirs: library
