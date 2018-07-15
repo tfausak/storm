@@ -1,6 +1,8 @@
 module Storm.Internal.Decode
   ( Decoder
   , runDecoder
+  , consume
+  , decodeInt32
   , decodeWord32
   )
 where
@@ -8,6 +10,7 @@ where
 import qualified Control.Monad.Fail as Fail
 import qualified Data.Bits as Bits
 import qualified Data.ByteString as Bytes
+import qualified Data.Int as Int
 import qualified Data.Word as Word
 
 newtype Decoder a =
@@ -67,6 +70,9 @@ consume n = do
   put r
   pure l
 
+decodeInt32 :: Decoder Int.Int32
+decodeInt32 = word32ToInt32 <$> decodeWord32
+
 decodeWord32 :: Decoder Word.Word32
 decodeWord32 = unsafeByteStringToWord32 <$> consume 4
 
@@ -79,3 +85,6 @@ unsafeByteStringToWord32 b =
 
 word8ToWord32 :: Word.Word8 -> Word.Word32
 word8ToWord32 = fromIntegral
+
+word32ToInt32 :: Word.Word32 -> Int.Int32
+word32ToInt32 = fromIntegral
